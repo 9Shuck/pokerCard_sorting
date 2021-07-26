@@ -1,1 +1,130 @@
-@import "~bootstrap/dist/css/bootstrap.min.css";
+body {
+    background-image: url(https://images4.alphacoders.com/418/thumb-1920-41814.jpg);
+    font-family: 'Courier New', Courier, monospace;
+    background-color: black;
+    background-size:     100%;           
+    background-repeat:   no-repeat;
+    background-position: center center;  
+
+}
+
+.cartag {
+
+  width: 10rem;
+  height: 12rem;
+  background-color: white;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 5%;
+  border-color: black;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 10px;
+  left: 50%;
+  transform: translate(-50%);
+  font-size: 3rem;
+
+}
+
+.symbolTop{
+    width: 20%;
+    height: 25%;
+    align-self: flex-start;
+    background-color: transparent;
+
+}
+
+.cardNumber{
+    width: 50%;
+    height: 50%;
+    margin: 10% 20%;
+    position: relative;
+    align-self: center;
+    background-color: transparent;
+    
+
+}
+
+.symbolDown{
+    width: 20%;
+    height: 25%;
+    position: relative;
+    align-self: flex-end;
+    background-color: transparent;
+
+}
+
+
+*{
+   border: 2px solid red;
+}
+
+
+.buttonG {
+  display: inline-block;
+  padding: 3px 9px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: red;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px #999;
+}
+
+.buttonG:hover {background-color:tomato}
+
+.buttonG:active {
+  background-color: #3e8e41;
+  box-shadow: 0 2px #666;
+  transform: translateY(4px);
+}
+
+.lnCard {
+    font-size: 20px;
+    color: white;
+    font-weight: 500;
+}
+
+main > p {
+    font-size: 30px;
+    color: white;
+}
+
+form{
+    
+    display: flex;
+    align-items: center;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    
+}
+
+.botoncicos{
+    
+    display: flex;
+    justify-content: space-around;
+    margin-left: 0;
+    padding-left: 0;
+    align-items: center;
+    padding-bottom: 0.25rem;
+    visibility: hidden;
+
+}
+
+/*Quitamos flechas*/
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;}

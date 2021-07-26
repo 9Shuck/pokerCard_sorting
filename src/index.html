@@ -1,29 +1,35 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello Rigo with Vanilla.js</title>
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
-      integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-      crossorigin="anonymous"
-    />
-    <link rel="shortcut icon" href="./4geeks.ico" />
-  </head>
-  <body>
-    <div class="container-fluid text-center">
-      <h1 class="mt-5">Hello Rigo!</h1>
-      <img src="./rigo-baby.jpg" />
-      <p class="alert alert-warning mt-4">
-        If this text is <b>not</b> centered and <b>yellow</b>, you probably have
-        an error
-      </p>
-      <div class="fixed-bottom p-4">
-        Made with ❤️ by
-        <a href="https://www.4geeksacademy.com">4Geeks Academy</a>
-      </div>
+    <link rel="stylesheet" href="src/style.css" />
+    <title>Sorting Cards</title>
+</head>
+
+<body>
+    <header>
+        <form id="form">
+            <label class="lnCard">Número de Cartas:</label>
+             <input type="number" class="nCard" id="nCards" pattern="[0-9]{1}" required></input>
+            <button class="buttonG" id="draw">Draw</button>       
+            </form>  
+            <div class="botoncicos">
+                <label class="lnCard">Metodo ordenar:</label> 
+                <button class="buttonG" id="buble">Bubble</button>
+                <button class="buttonG" id="select">Select</button>
+            </div>
+    </header>
+    <div class="cardContainer">
+        <div class="cartag" id="cartag">
+            <div id class="symbolTop"></div>
+            <div id class="cardNumber"></div>
+            <div id class="symbolDown"></div>
+
+        </div>
     </div>
-  </body>
+    <main><p>Bubble Log:</p></main>
+</body>
+
 </html>
