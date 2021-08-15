@@ -1,35 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ordenador de cartas profesional</title>
     <link rel="stylesheet" href="src/style.css" />
-    <title>Sorting Cards</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <form id="form">
-            <label class="lnCard">Número de Cartas:</label>
-             <input type="number" class="nCard" id="nCards" pattern="[0-9]{1}" required></input>
-            <button class="buttonG" id="draw">Draw</button>       
-            </form>  
-            <div class="botoncicos">
-                <label class="lnCard">Metodo ordenar:</label> 
-                <button class="buttonG" id="buble">Bubble</button>
-                <button class="buttonG" id="select">Select</button>
-            </div>
+      <img src="src/assets/img/pngwing.com.png" alt="" />
     </header>
-    <div class="cardContainer">
-        <div class="cartag" id="cartag">
-            <div id class="symbolTop"></div>
-            <div id class="cardNumber"></div>
-            <div id class="symbolDown"></div>
-
-        </div>
+    <div class="topControls">
+      <input
+        id="amountInput"
+        type="number"
+        name="numberCards"
+        min="1"
+        max="10"
+        placeholder="Pon aqui el numero de cartas"
+      />
+      <button id="briefeBtn">Briefe</button>
     </div>
-    <main><p>Bubble Log:</p></main>
-</body>
-
+    <div class="btn">
+      <button id="bubleBtn">BubbleSort</button>
+      <button id="selectBtn">SelectSort</button>
+    </div>
+    <div id="cardContainer"></div>
+    <div class="ninja">
+      <h2>Sorting Card</h2>
+      <div class="line"></div>
+    </div>
+    <div id="cardSortContainer"></div>
+    <script src="src/index.js"></script>
+  </body>
 </html>
