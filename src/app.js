@@ -1,124 +1,170 @@
-let valueCard = [
-  "A",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "10",
-  "J",
-  "Q",
-  "K"
-];
-let auxiliarVar = [];
-let auxilirSym = [];
-let arrayVal = [];
-let arraySym = [];
-let cardSymb = ["Heart", "Club", "Spade", "Diamond"];
+import "bootstrap";
+import "./style.css";
 
-document.querySelector("#briefeBtn").addEventListener("click", function() {
-  document.querySelector("#cardContainer").innerHTML = "";
-  document.querySelector("#cardSortContainer").innerHTML = "";
-  let cantidad = document.querySelector("#amountInput").value;
-  let valueIndex = 0;
-  let symbolIndex = 0;
-  for (let i = 0; i < cantidad; i++) {
-    valueIndex = Math.floor(Math.random() * 13);
-    symbolIndex = Math.floor(Math.random() * 4);
-    document.querySelector("#cardContainer").innerHTML += generateCard(
-      valueCard[valueIndex],
-      cardSymb[symbolIndex]
-    );
-    auxiliarVar.push(valueIndex);
-    auxilirSym.push(symbolIndex);
-  }
-  arrayVal = auxiliarVar;
-  arraySym = auxilirSym;
-});
+//Variables
+const SECTION = document.querySelector("#mySection");
+const SECTION2 = document.querySelector("#mySection2");
+const VALUES = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+const SUITS = ["♠", "♥", "♦", "♣"];
 
-document.querySelector("#bubleBtn").addEventListener("click", function() {
-  document.querySelector("#cardSortContainer").innerHTML = "";
-  bubbleSort(arrayVal, arraySym);
-});
+const INPUT = document.querySelector("input");
+const DRAW = document.querySelector("#draw");
+const BUBBLE = document.querySelector("#bubble");
+const SELECTION = document.querySelector("#selection");
 
-document.querySelector("#selectBtn").addEventListener("click", function() {
-  document.querySelector("#cardSortContainer").innerHTML = "";
-  selectSort(arrayVal, arraySym);
-});
+window.onload = function() {
+  //Pintar el fondo de verde
+  SECTION.classList.add("background");
+  SECTION2.classList.add("background");
+  let listOfCards = [];
 
-function generateCard(value, icon) {
-  return `<div class="cardWrapper">
-                <div class="card">
-                    <div class="topCard">
-                        <span class="card${icon}"></span>
-                    </div>
-                    <div class="middleCard">
-                        <span class="middleNumber">${value}</span>
-                    </div>
-                    <div class="bottomCard">
-                        <span class="card${icon}"></span>
-                    </div>
-                </div>
-            </div>`;
-}
+  //Evento de Draw
+  DRAW.addEventListener("click", event => {
+    listOfCards = createCard(event);
+    SECTION2.innerHTML = "";
+  });
 
-const bubbleSort = (arr, arr2) => {
-  document.querySelector(".ninja").style.visibility = "visible";
-  let wall = arr.length - 1;
-  while (wall > 0) {
-    let index = 0;
-    let index2 = 0;
-    let aux = 0;
-    let aux2 = 0;
-    while (index < wall) {
-      if (arr[index] > arr[index + 1]) {
-        aux = arr[index];
-        arr[index] = arr[index + 1];
-        arr[index + 1] = aux;
-        aux2 = arr2[index2];
-        arr2[index2] = arr2[index2 + 1];
-        arr2[index2 + 1] = aux2;
-      }
-      index++;
-      index2++;
-    }
-    wall--;
-  }
-  for (let i = 0; i < arr.length; i++) {
-    document.querySelector("#cardSortContainer").innerHTML += generateCard(
-      valueCard[arr[i]],
-      cardSymb[arr2[i]]
-    );
-  }
+  //Evento de bubble sort
+  BUBBLE.addEventListener("click", event => {
+    SECTION2.innerHTML = "";
+    bubbleSort(listOfCards);
+  });
+
+  //Evento de selection sort
+  SELECTION.addEventListener("click", event => {
+    SECTION2.innerHTML = "";
+    selectionSort(listOfCards);
+  });
 };
 
-const selectSort = (arr, arr2) => {
-  document.querySelector("#cardSortContainer").innerHTML = "";
-  document.querySelector(".ninja").style.visibility = "visible";
+//Funcion para generar cartas
+function createCard(event) {
+  event.preventDefault();
+
+  //Reinicia la seccion donde se pintan las cartas
+  SECTION.innerHTML = "";
+
+  //array de objetos carta
+  let cards = [];
+
+  //Bucle para iterar sobre el valor del input
+  for (let i = 0; i < INPUT.value; i++) {
+    cards.push(drawnCard());
+  }
+  return cards;
+}
+
+function drawnCard(family = null, number = null) {
+  //Crea un objeto carta
+  let card;
+
+  if (family == null || number == null) {
+    card = {
+      suit: SUITS[getRandom(SUITS)],
+      value: VALUES[getRandom(VALUES)],
+      index: null
+    };
+  } else {
+    card = {
+      suit: family,
+      value: number,
+      index: null
+    };
+  }
+
+  card.index = card.value;
+
+  //Reemplaza los numeros 11,12,13,14 por J,Q,K,A
+  if (card.value == 14) {
+    card.value = "A";
+  }
+  if (card.value == 11) {
+    card.value = "J";
+  }
+  if (card.value == 12) {
+    card.value = "Q";
+  }
+  if (card.value == 13) {
+    card.value = "K";
+  }
+
+  //Contiene la carta entera
+  let drawnCard = document.createElement("div");
+  drawnCard.classList.add("poker-card");
+
+  //Crea el icono de arriba
+  let firstSuitContainer = document.createElement("div");
+  let firstSuit = document.createTextNode(card.suit);
+  firstSuitContainer.appendChild(firstSuit);
+  firstSuitContainer.classList.add("align-start");
+  drawnCard.appendChild(firstSuitContainer);
+
+  //Crea el numero
+  let valueContainer = document.createElement("div");
+  let value = document.createTextNode(card.value);
+  valueContainer.classList.add("card-value");
+  valueContainer.appendChild(value);
+  drawnCard.appendChild(valueContainer);
+
+  //Crea el icono de abajo
+  let secondSuitContainer = document.createElement("div");
+  let secondSuit = document.createTextNode(card.suit);
+  secondSuitContainer.appendChild(secondSuit);
+  secondSuitContainer.classList.add("align-end");
+  secondSuitContainer.classList.add("invert");
+  drawnCard.appendChild(secondSuitContainer);
+
+  //Pinta rojo o negro dependiendo del suit
+  if (card.suit == "♥" || card.suit == "♦") {
+    firstSuitContainer.classList.add("red");
+    valueContainer.classList.add("red");
+    secondSuitContainer.classList.add("red");
+  } else {
+    firstSuitContainer.classList.add("black");
+    valueContainer.classList.add("black");
+    secondSuitContainer.classList.add("black");
+  }
+
+  if (family == null || number == null) {
+    SECTION.appendChild(drawnCard);
+    return card;
+  } else {
+    SECTION2.appendChild(drawnCard);
+  }
+}
+
+function bubbleSort(listOfCards) {
+  for (var i = 0; i < listOfCards.length; i++) {
+    for (var j = 0; j < listOfCards.length - i - 1; j++) {
+      if (listOfCards[j].index > listOfCards[j + 1].index) {
+        var temp = listOfCards[j];
+        listOfCards[j] = listOfCards[j + 1];
+        listOfCards[j + 1] = temp;
+      }
+    }
+  }
+  for (let i = 0; i < listOfCards.length; i++) {
+    drawnCard(listOfCards[i].suit, listOfCards[i].value);
+  }
+}
+
+function selectionSort(listOfCards) {
   let min = 0;
-  let aux = 0;
-  let aux2 = 0;
-  while (min < arr.length - 1) {
-    for (let i = min + 1; i < arr.length; i++) {
-      if (arr[min] > arr[i]) {
-        aux = arr[min];
-        arr[min] = arr[i];
-        arr[i] = aux;
-        aux2 = arr2[min];
-        arr2[min] = arr2[i];
-        arr2[i] = aux2;
+  while (min < listOfCards.length - 1) {
+    for (let i = min + 1; i < listOfCards.length; i++) {
+      if (listOfCards[min].index > listOfCards[i].index) {
+        let aux = listOfCards[min];
+        listOfCards[min] = listOfCards[i];
+        listOfCards[i] = aux;
       }
     }
     min++;
   }
-  for (let i = 0; i < arr.length; i++) {
-    document.querySelector("#cardSortContainer").innerHTML += generateCard(
-      valueCard[arr[i]],
-      cardSymb[arr2[i]]
-    );
+  for (let i = 0; i < listOfCards.length; i++) {
+    drawnCard(listOfCards[i].suit, listOfCards[i].value);
   }
-};
+}
 
+function getRandom(list) {
+  return Math.floor(Math.random() * list.length);
+}
